@@ -1,0 +1,127 @@
+/* Contenedor Principal */
+.aboutUsContainer {
+    max-width: 100%;  
+    min-height: 100vh;
+    padding-top: 15px; /* o el valor deseado */
+    margin-top: 0;  /* clave para eliminar el espacio blanco */
+    margin: 0;
+    text-align: center;
+    background: linear-gradient(to bottom, #f5f5f5, #e0e7ff); /* Degradado suave */
+  }
+  
+  /* Títulos de Sección */
+  .sectionTitle {
+    margin-top: 0;
+    padding-top: 2rem; /* si querés espaciado visual */
+    font-size: 3rem;
+    font-weight: bold;
+    color: #004ba0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  .sectionSubtitle {
+    font-weight: bold;
+    color: #004ba0;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  /* Texto General */
+  .introText,
+  .originText,
+  .missionText,
+  .valuesText {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  /* Estilos específicos para cada sección */
+  .introSection,
+  .originSection,
+  .missionSection,
+  .valuesSection,
+  .teamSection {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Animación al hacer scroll */
+  .visible .sectionTitle,
+  .visible .sectionSubtitle,
+  .visible .introText,
+  .visible .originText,
+  .visible .missionText,
+  .visible .valuesText {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Sección: Nuestro Equipo */
+  .teamSection {
+    padding-top: 10px;
+  }
+  
+  .teamMembers {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  
+  /* Estilos de los miembros del equipo */
+  .teamMember {
+    width: 300px;
+    text-align: center;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .teamMember:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Imágenes de los miembros del equipo */
+  .teamMemberImage {
+    /*width: 200px;
+    height: 200px;*/
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  /* Animación al hacer scroll */
+  .visible .teamMemberImage {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Nombre y Cargo */
+  .teamMemberName {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #004ba0;
+  }
+  
+  .teamMemberRole {
+    font-size: 1rem;
+    color: #666;
+  }
+    /* Botón de Contacto */

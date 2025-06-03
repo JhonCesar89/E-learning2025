@@ -1,0 +1,137 @@
+.majorContainer {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #f5f5f5, #e0e7ff);
+}
+
+.mainLayout {
+  display: flex;
+  flex-direction: row;
+}
+
+.firstContent {
+  flex: 3;
+  background: linear-gradient(to bottom, #f5f5f5, #e0e7ff);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+.secondHeader {
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 20px 10px 0 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.principalTitle,
+.secondarySubtitle {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 10px;
+}
+
+.courseIntroduction,
+.courseBenefits,
+.courseSection {
+  margin: 30px 100px;
+  border-radius: 8px;
+  border: none;
+}
+
+.courseIntroduction::after,
+.courseBenefits::after {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 2px;
+  background: #ddd;
+  margin: 20px auto 0 auto;
+}
+
+.courseSectionTitle {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.courseSectionDescription {
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #555;
+  text-align: justify;
+}
+
+.courseList {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
+}
+
+.courseListItem {
+  font-size: 1em;
+  margin-bottom: 5px;
+  line-height: 1.8;
+  color: #555;
+  position: relative;
+  padding-left: 40px;
+  text-align: justify;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.courseListItem::before {
+  content: "✔";
+  color: #4caf50;
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.courseImages {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.courseImages img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 1024px) {
+  .courseImages img {
+    max-width: 40%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainLayout {
+    flex-direction: column;
+  }
+
+  .courseIntroduction,
+  .courseBenefits,
+  .courseSection {
+    margin: 10px;
+  }
+
+  .courseImages {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .courseListItem {
+    padding-left: 30px;
+  }
+}
