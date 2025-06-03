@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import SessionProviders from '@/providers/SessionProviders'
 import './globals.css';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: 'SkiLogin Academy',
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <SessionProviders>
           {children}
+          <SpeedInsights />
         </SessionProviders>
       </body>
     </html>
