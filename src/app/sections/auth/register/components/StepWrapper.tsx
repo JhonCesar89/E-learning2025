@@ -3,6 +3,7 @@
 import RegisterEmailForm from "../forms/RegisterEmailForm"
 import ContainerOTP from "../verify/ContainerOTP"
 import NamePasswordForm from "../forms/NamePasswordForm"
+import { completeRegistration } from "../actions/authActions"
 import CompleteProfileForm from '../forms/CompleteProfileForm'
 import { CredentialsFormData } from "../types/types"
 
@@ -45,12 +46,26 @@ const StepWrapper: React.FC<StepWrapperProps> = ({
       return (
         <ContainerOTP
           email={email}
-          onboardingId={onboardingId}
+          onboarding_id={onboardingId}
           onVerified={onOTPVerified}
         />
       );
     case 3:
-      return <NamePasswordForm onSuccess={onCredentialsSubmitted} />;
+      return <NamePasswordForm
+  onSuccess={async (formData) => {
+    const result = await completeRegistration({
+      email,
+      onboardingId,
+      ...formData
+    });
+
+    if (result) {
+      onCredentialsSubmitted(formData); // Advance to next step (profile, or done)
+    } else {
+      console.error("Failed to complete registration");
+    }
+  }}
+/>
       default:
         return <p className="text-red-500 font-semibold">Unknown registration step.</p>;
   }

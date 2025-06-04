@@ -24,8 +24,28 @@ const CompleteProfileForm: React.FC<CompleteProfileFormProps> = ({ onboardingId,
     resolver: zodResolver(completeProfileSchema),
   });
 
+  const handleFinalSubmit = async (data: CompleteProfileFormData) => {
+    try {
+      const res = await fetch('http://localhost:3001/api/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ onboardingId, companyName: data.companyName }),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        onComplete(data);
+      } else {
+        console.error('Error saving profile:', result.error);
+      }
+    } catch (err) {
+      console.error('Network error:', err);
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit(onComplete)} className="w-full max-w-md space-y-6 bg-white shadow-md rounded-lg p-8">
+    <form onSubmit={handleSubmit(handleFinalSubmit)} className="w-full max-w-md space-y-6 bg-white shadow-md rounded-lg p-8">
       <h2 className="text-2xl font-bold text-blue-600 text-center">Completa tu perfil</h2>
 
       <div>

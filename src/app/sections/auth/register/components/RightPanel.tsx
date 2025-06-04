@@ -6,7 +6,7 @@ import { CredentialsFormData } from "../types/types"
 interface RightPanelProps {
   step: number;
   email: string;
-  onboardingId: string; // new
+  onboardingId: string; 
   onEmailVerified: (email: string, onboardingId: string) => void;
   onOTPVerified: () => void;
   onCredentialsSubmitted: (data: CredentialsFormData) => void;
