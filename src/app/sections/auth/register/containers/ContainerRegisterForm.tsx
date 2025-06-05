@@ -28,9 +28,9 @@ const ContainerRegisterForm: React.FC<ContainerRegisterFormProps> = ({ onExplore
 
   // Final step: called after user submits name and password
   const handleCredentialsSubmitted = (data: CredentialsFormData) => {
-    const finalPayload: CreateUserData = { email, ...data }; // Combine email and credentials
+    const finalPayload: CreateUserData = { email, onboardingId, ...data }; // Combine email and credentials
     console.log("Final registration payload:", finalPayload); // Send to backend
-    setStep(4); // ⬅ Go to new step
+    setStep(4); // Move to profile completion step
     // Here you would typically call an API to create the user
   };
 
@@ -38,6 +38,7 @@ const ContainerRegisterForm: React.FC<ContainerRegisterFormProps> = ({ onExplore
   // Simulate platform access
   console.log("User fully onboarded. Redirecting to platform...");
   setRegistrationComplete(true);
+  
 };
 
   return (

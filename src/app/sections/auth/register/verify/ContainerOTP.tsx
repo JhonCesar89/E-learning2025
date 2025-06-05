@@ -3,12 +3,12 @@ import OTPForm from "./OTPForm";
 
 interface ContainerOTPProps {
   email: string;
-  onboardingId: string; // Required for backend validation
+  onboarding_id: string; // Required for backend validation
   onVerified: () => void;
 }
 
-const ContainerOTP: React.FC<ContainerOTPProps> = ({ email, onboardingId, onVerified }) => {
-  return <OTPForm email={email} onboardingId={onboardingId} onSuccess={onVerified} />;
+const ContainerOTP: React.FC<ContainerOTPProps> = ({ email, onboarding_id, onVerified }) => {
+  return <OTPForm email={email} onboarding_id={onboarding_id} onSuccess={onVerified} />;
 };
 
 export default ContainerOTP;

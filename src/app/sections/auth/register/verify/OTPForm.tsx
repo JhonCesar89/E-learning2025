@@ -8,11 +8,11 @@ import { otpSchema, OTPFormData } from "../types/types";
 
 interface OTPFormProps {
   email: string;
-  onboardingId: string; // Required for backend validation
+  onboarding_id: string; // Required for backend validation
   onSuccess: () => void;
 }
 
-const OTPForm: React.FC<OTPFormProps> = ({ email, onboardingId, onSuccess }) => {
+const OTPForm: React.FC<OTPFormProps> = ({ email, onboarding_id, onSuccess }) => {
   const [loading, setLoading] = useState(false); // Tracks form submit status
   const [error, setError] = useState<string | null>(null); // For showing error messages
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // For showing success messages
@@ -30,7 +30,7 @@ const OTPForm: React.FC<OTPFormProps> = ({ email, onboardingId, onSuccess }) => 
     setSuccessMessage(null);
 
     try {
-      const isValid = await verifyOTP(onboardingId, data.otp);
+      const isValid = await verifyOTP(onboarding_id, data.otp);
       if (isValid) {
         setSuccessMessage(`OTP verificado con éxito para: ${email}`);
         setTimeout(() => {
@@ -51,7 +51,7 @@ const OTPForm: React.FC<OTPFormProps> = ({ email, onboardingId, onSuccess }) => 
     if (resendCooldown > 0) return;
 
     try {
-      await resendOTP(email, onboardingId);
+      await resendOTP(email, onboarding_id);
       setResendCooldown(30);
 
       const interval = setInterval(() => setResendCooldown(prev => prev - 1), 1000);

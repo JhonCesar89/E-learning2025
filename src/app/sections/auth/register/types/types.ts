@@ -43,6 +43,8 @@ export interface CreateUserData {
   email: string;
   password: string;
   confirmPassword: string;
+  name: string;
+  onboardingId: string;
 }
 
 /**

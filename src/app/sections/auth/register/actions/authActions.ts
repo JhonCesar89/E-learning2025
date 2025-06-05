@@ -2,34 +2,50 @@
 //export const sendOTP = async (email: string) => {
 //  return await axios.post("/api/send-otp", { email });
 //};
+import { CreateUserData } from "../types/types";
 
 export const sendOTP = async (email: string): Promise<{ onboarding_id: string }> => {
-  console.log(`Enviando OTP a ${email}`);
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve({ onboarding_id: "mock-onboarding-id-00001" }); // Simulated onboarding_id
-    }, 1000)
-  );
+  const res = await fetch('http://localhost:3001/api/onboarding', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!res.ok) {
+    throw new Error('Error sending OTP');
+  }
+
+  return await res.json();
 };
 
 export const verifyOTP = async (onboarding_id: string, otp: string): Promise<boolean> => {
-  console.log(`Verificando OTP ${otp} para onboarding_id ${onboarding_id}`);
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(otp === "123456"); // Accepts only mock OTP
-    }, 1000)
-  );
+  const res = await fetch('http://localhost:3001/api/verify-otp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ onboarding_id, otp }),
+  });
+
+  const result = await res.json();
+  return result.success === true;
 };
 
-// Simulated resendOTP function that accepts both email and onboarding_id
-export const resendOTP = async (
-  email: string,
-  onboarding_id: string
-): Promise<boolean> => {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      console.log(`Reenviar OTP a ${email} con onboarding_id ${onboarding_id}`);
-      resolve(true);
-    }, 1000)
-  );
+export const resendOTP = async (email: string, onboarding_id: string): Promise<boolean> => {
+  const res = await fetch('http://localhost:3001/api/resend-otp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, onboarding_id }),
+  });
+
+  return res.ok;
+};
+
+export const completeRegistration = async (data: CreateUserData): Promise<boolean> => {
+  const res = await fetch('http://localhost:3001/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+  return result.success === true;
 };

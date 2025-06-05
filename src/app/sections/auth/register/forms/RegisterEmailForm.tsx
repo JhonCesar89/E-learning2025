@@ -36,10 +36,10 @@ const RegisterEmailForm = ({
       throw new Error(result.error || 'Unknown error');
     }
 
-    const { onboardingId } = result;
+    const { onboarding_id } = result;
 
     // Pass email and onboardingId back to parent
-    onSuccess(data.email, onboardingId);
+    onSuccess(data.email, onboarding_id);
   } catch (err) {
     console.error("Error creating onboarding:", err);
     setError("Failed to register email. Try again.");
