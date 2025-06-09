@@ -1,9 +1,26 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function StudentDashboard() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // Redirect if not authenticated or wrong role
+  useEffect(() => {
+    if (status === 'loading') return;
+
+    if (!session || session.user.role !== 'STUDENT') {
+      router.push('/login'); // Or show error
+    }
+  }, [session, status, router]);
+
+  // While loading session...
+  if (status === 'loading') {
+    return <p className="text-gray-500 p-8">Loading...</p>;
+  }
 
   return (
     <div className="p-8">
@@ -13,6 +30,7 @@ export default function StudentDashboard() {
     </div>
   );
 }
+
 // This is the student dashboard page. It displays the student's name, email, and role.
 // It uses the `useSession` hook from `next-auth` to access the session data.
 // The page is styled with Tailwind CSS classes for a clean and modern look.

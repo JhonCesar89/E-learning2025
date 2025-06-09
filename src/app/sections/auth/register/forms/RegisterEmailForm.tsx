@@ -1,4 +1,5 @@
-'use client';
+'use client'
+
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -8,7 +9,7 @@ import { emailSchema, EmailFormData } from '../types/types';
 const RegisterEmailForm = ({
   onSuccess,
 }: {
-  onSuccess: (email: string, onboarding_id: string) => void;
+  onSuccess: (email: string, onboarding_id: string, resumeStep?: number) => void;
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,10 +37,13 @@ const RegisterEmailForm = ({
       throw new Error(result.error || 'Unknown error');
     }
 
-    const { onboarding_id } = result;
+    // If resuming onboarding at step 4
+    if (result.resume) {
+      onSuccess(data.email, result.onboarding_id, 4);
+    } else {
+      onSuccess(data.email, result.onboarding_id);
+    }
 
-    // Pass email and onboardingId back to parent
-    onSuccess(data.email, onboarding_id);
   } catch (err) {
     console.error("Error creating onboarding:", err);
     setError("Failed to register email. Try again.");

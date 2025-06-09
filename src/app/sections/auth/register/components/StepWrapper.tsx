@@ -1,5 +1,6 @@
 // src/sections/auth/register/components/StepWrapper.tsx
 // StepWrapper.tsx to switch between the different registration stps.
+import { useState } from 'react'
 import RegisterEmailForm from "../forms/RegisterEmailForm"
 import ContainerOTP from "../verify/ContainerOTP"
 import NamePasswordForm from "../forms/NamePasswordForm"
@@ -26,22 +27,31 @@ const StepWrapper: React.FC<StepWrapperProps> = ({
   onCredentialsSubmitted,
   onProfileCompleted,
 }) => {
+  
+  // Hold password here to use for autologin later
+  const [credentials, setCredentials] = useState<CredentialsFormData | null>(null);
+
+  // Step 4: Final profile setup + autologin
   if (step === 4) {
     return (
       <CompleteProfileForm
         onboardingId={onboardingId}
         email={email}
+        password={credentials?.password || ''} // Send password for auto-login
         onComplete={(data) => {
           console.log('Complete profile data:', data);
-          // Save to backend here
           onProfileCompleted(); // call to move to platform
         }}
       />
     );
   }
+
+  // Other steps in registration
   switch (step) {
     case 1:
       return <RegisterEmailForm onSuccess={onEmailVerified} />;
+    
+      // Step 2: OTP verification
     case 2:
       return (
         <ContainerOTP
@@ -50,17 +60,20 @@ const StepWrapper: React.FC<StepWrapperProps> = ({
           onVerified={onOTPVerified}
         />
       );
+    
+      // Step 3: Name + Password form
     case 3:
       return <NamePasswordForm
-  onSuccess={async (formData) => {
-    const result = await completeRegistration({
-      email,
-      onboardingId,
-      ...formData
+      onSuccess={async (formData) => {
+        const result = await completeRegistration({
+          email,
+          onboardingId,
+          ...formData
     });
 
     if (result) {
-      onCredentialsSubmitted(formData); // Advance to next step (profile, or done)
+      setCredentials(formData); // Store credentials for later use
+      onCredentialsSubmitted(formData); // Move to profile step
     } else {
       console.error("Failed to complete registration");
     }
@@ -72,7 +85,6 @@ const StepWrapper: React.FC<StepWrapperProps> = ({
 };
 
 export default StepWrapper;
-
 // StepWrapper.tsx
 // StepWrapper.tsx is a component that renders different forms based on the current step of the registration process.
 // It takes in the current step, email, onboardingId, and callback functions for handling email verification, OTP verification, and credentials submission.

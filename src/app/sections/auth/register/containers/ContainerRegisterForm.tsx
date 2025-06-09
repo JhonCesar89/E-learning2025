@@ -15,10 +15,14 @@ const ContainerRegisterForm: React.FC<ContainerRegisterFormProps> = ({ onExplore
   const [registrationComplete, setRegistrationComplete] = useState(false);
 
   // Called from Step 1 (email verification), gets onboardingId
-  const handleEmailVerified = (verifiedEmail: string, onboarding_id: string) => {
+  const handleEmailVerified = (
+    verifiedEmail: string,
+    onboarding_id: string,
+    resumeStep: Step = 2 // Optional step to resume from
+  ) => {
     setEmail(verifiedEmail);
     setOnboardingId(onboarding_id); // Save onboarding_id for OTP verification
-    setStep(2); // Proceed to OTP step
+    setStep(resumeStep); // Proceed to OTP step
   };
 
   // Called after successful OTP validation
