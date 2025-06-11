@@ -3,7 +3,6 @@
 import { signIn, getSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
@@ -61,6 +60,7 @@ const LoginForm: React.FC = () => {
             <label className="block text-sm mb-2 font-medium text-gray-700">Email</label>
             <input
               type="email"
+              placeholder="Ingresa tu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -73,23 +73,19 @@ const LoginForm: React.FC = () => {
             <input
               type="password"
               value={password}
+              placeholder="Ingresa tu clave"
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+            className="w-1/2 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
           >
             Login
           </button>
-
-          <p className="text-center text-sm text-gray-600">
-            ¿No tienes una cuenta?{' '}
-            <Link  href="/?view=register" className="text-blue-600 underline">Crear una cuenta </Link>
-          </p>
         </form>
       </div>
     </div>

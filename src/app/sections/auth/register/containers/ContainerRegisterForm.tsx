@@ -63,7 +63,8 @@ const ContainerRegisterForm: React.FC<ContainerRegisterFormProps> = ({ onExplore
           
           {/* Right panel with registration steps */}         
           <div className="w-[60%] flex bg-slate-100 justify-center p-6">
-            <RightPanel 
+            <RightPanel
+              mode="register"
               step={step}
               email={email}
               onboardingId={onboardingId} // Pass down for OTP step

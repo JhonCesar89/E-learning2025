@@ -1,11 +1,14 @@
-'use client';
+'use client'
+
 import StepWrapper from "./StepWrapper"
-import Link from 'next/link';
+import Link from 'next/link'
+import LoginForm from '../../login/components/LoginForm'
 import { CredentialsFormData } from "../types/types"
 
 interface RightPanelProps {
-  step: number;
-  email: string;
+  mode: 'register' | 'login';
+  step?: number;
+  email?: string;
   onboardingId: string; 
   onEmailVerified: (email: string, onboardingId: string) => void;
   onOTPVerified: () => void;
@@ -14,9 +17,10 @@ interface RightPanelProps {
 }
 
 const RightPanel: React.FC<RightPanelProps> = ({
-  step,
-  email,
-  onboardingId,
+  mode,
+  step = 1,
+  email = '',
+  onboardingId = '',
   onEmailVerified,
   onOTPVerified,
   onCredentialsSubmitted,
@@ -24,40 +28,63 @@ const RightPanel: React.FC<RightPanelProps> = ({
 }) => {
 
   return (
-    <div className="flex flex-col w-full h-full items-center justify-center rounded-l-2xl p-6 overflow-hidden">
+    <div className="flex flex-col w-full h-full  items-center justify-center rounded-l-2xl p-6 overflow-hidden">
       
-      {/* Top-right: Already have account */}
-      <div className="flex-row border-gray-200 items-center py-6">
-        ¿Ya tienes una cuenta?{" "}
-        <Link href="/login" className="text-blue-600 mt-8 hover:underline font-medium">
-        Inicia sesión
-        </Link>
-        <h2 className="text-4xl justify-center items-center font-bold text-blue-600 mt-8 mb-8 text-center p-6">¡Hola bienvenido a SkilLogin Academy!</h2>
+      {/* Top link  */}
+      <div className="w-full flex justify-start text-sm mb-4">
+        {mode === 'register' ? (
+          <>
+             <p className="text-gray-700">
+              ¿Ya tienes una cuenta?{' '}
+              <Link href="/login" className="text-blue-600 hover:underline font-medium">
+                Inicia sesión
+              </Link>
+            </p>
+          </>
+        ) : (
+          <>
+            <span className="text-gray-700">¿No tienes una cuenta? </span>
+            <Link href="/?view=register" className="text-blue-600 ml-2 hover:underline font-medium">
+              Crear una cuenta
+            </Link>
+          </>
+          )}
+      </div>
+
+      {/* Welcome */}
+      <div className="mb-6">
+        <h2 
+          className="text-4xl font-bold text-blue-600 mt-8 mb-8 p-6">
+          ¡Hola bienvenido a SkilLogin Academy!
+        </h2>
         <p className="text-gray-600 mb-6 mt-8 text-center justify-center p-2">
-          Por favor, ingresa tus datos para registrarte a nuestra plataforma.
+          {mode === 'register'
+            ? 'Por favor, ingresa tus datos para registrarte a nuestra plataforma.'
+            : 'Por favor, ingresa tus credenciales para acceder a tu cuenta.'}
         </p>
       </div>
 
-      {/* Card container */}
+      {/* Dynamic form */}
       <div className="w-full max-w-xl items-center rounded-2xl flex flex-col py-2">
-        {/* Step content */}
-        <div className="flex-grow my-6">
+        {mode === 'register' ? (
           <StepWrapper
             step={step}
             email={email}
             onboardingId={onboardingId}
-            onEmailVerified={onEmailVerified}
-            onOTPVerified={onOTPVerified}
-            onCredentialsSubmitted={onCredentialsSubmitted}
-            onProfileCompleted={onProfileCompleted}
+            onEmailVerified={onEmailVerified!}
+            onOTPVerified={onOTPVerified!}
+            onCredentialsSubmitted={onCredentialsSubmitted!}
+            onProfileCompleted={onProfileCompleted!}
           />
-        </div>
+        ) : (
+          <LoginForm />
+        )}
+      </div>
 
-        {/* Footer */}
-        <div className="text-xm text-blue-800 text-center my-6">
-          <a href="#" className="underline">Política de Privacidad</a> ·{" "}
-          <a href="#" className="underline">Términos y Condiciones</a>
-        </div>
+      {/* Footer */}
+      <div className="text-xs text-blue-800 text-center mt-4">
+        <a href="#" className="underline">Política de Privacidad</a> ·{" "}
+        <a href="#" className="underline">Términos y Condiciones</a>
       </div>
     </div>
   );

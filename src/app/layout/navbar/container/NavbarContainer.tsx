@@ -30,7 +30,19 @@ const NavbarContainer: React.FC<NavbarContainerProps> = ({ onRegisterClick }) =>
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    const value = e.target.value;
+    // Update search term state
+    setSearchTerm(value);
+
+    //Inmediately filter results
+    if (value.trim()){
+      const filtered = courses.filter(course =>
+        course.toLocaleLowerCase().includes(value.toLowerCase())
+      );
+      setCoursesFiltered(filtered);
+    } else {
+      setCoursesFiltered([]);
+    }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -122,7 +134,7 @@ const NavbarContainer: React.FC<NavbarContainerProps> = ({ onRegisterClick }) =>
         <div className={styles.searchContainer}>
           <input
             type="text"
-            placeholder="Search courses..."
+            placeholder="Busque el curso..."
             value={searchTerm}
             onChange={handleSearchChange}
             onKeyDown={handleKeyDown}

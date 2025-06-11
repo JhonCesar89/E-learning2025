@@ -1,11 +1,12 @@
 // src/app/courses/[slug]/page.tsx
 'use client';
 
-import { useParams } from 'next/navigation';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import styles from '../styles/CoursePage.module.css';
+import { useParams } from 'next/navigation'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import React from 'react'
+import styles from '../styles/CoursePage.module.css'
+import Navbar from '../../layout/navbar/Navbar'
 
 const courseData: Record<string, {
   title: string;
@@ -116,40 +117,44 @@ export default function CoursePage() {
   // que contiene los datos de los cursos.
 
   return (
-    <div className={styles.majorContainer}>
-      <div className={styles.mainLayout}>
-        <div className={styles.firstContent}>
-          <header className={styles.secondHeader}>
-            <h1 className={styles.principalTitle}>
-              Comienza hoy tu carrera en: {course.title}
-            </h1>
-          </header>
+    <>
+      <Navbar />
+      
+      <div className={styles.majorContainer}>
+        <div className={styles.mainLayout}>
+          <div className={styles.firstContent}>
+            <header className={styles.secondHeader}>
+              <h1 className={styles.principalTitle}>
+                Comienza hoy tu carrera en: {course.title}
+              </h1>
+            </header>
 
-          <section className={styles.courseIntroduction}>
-            <h3 className={styles.courseSectionTitle}>
-              ¿Qué es ser un {course.title}?
-            </h3>
-            <p>{course.intro}</p>
-          </section>
+            <section className={styles.courseIntroduction}>
+              <h3 className={styles.courseSectionTitle}>
+                ¿Qué es ser un {course.title}?
+              </h3>
+              <p>{course.intro}</p>
+            </section>
 
-          <section className={styles.courseBenefits}>
-            <h3 className={styles.courseSectionTitle}>Beneficios de aprender {course.title}.</h3>
-            <ul className={styles.courseList}>
-              {course.benefits.map((b, i) => <li key={i}>{b}</li>)}
-            </ul>
-          </section>
+            <section className={styles.courseBenefits}>
+              <h3 className={styles.courseSectionTitle}>Beneficios de aprender {course.title}.</h3>
+              <ul className={styles.courseList}>
+                {course.benefits.map((b, i) => <li key={i}>{b}</li>)}
+              </ul>
+            </section>
 
-          <section className={styles.courseSection}>
-            <h3 className={styles.courseSectionTitle}>Inscríbete al Curso de {course.title}.</h3>
-            <p>{course.enrollMessage}</p>
-            <div className={styles.courseImages}>
-              {course.images.map((src, i) => (
-                <Image key={i} src={src} alt={`Curso ${course.title} ${i + 1}`} width={400} height={300} />
-              ))}
-            </div>
-          </section>
+            <section className={styles.courseSection}>
+              <h3 className={styles.courseSectionTitle}>Inscríbete al Curso de {course.title}.</h3>
+              <p>{course.enrollMessage}</p>
+              <div className={styles.courseImages}>
+                {course.images.map((src, i) => (
+                  <Image key={i} src={src} alt={`Curso ${course.title} ${i + 1}`} width={400} height={300} />
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
