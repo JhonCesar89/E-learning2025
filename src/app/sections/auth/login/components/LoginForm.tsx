@@ -1,8 +1,9 @@
 'use client';
 
-import { signIn, getSession } from 'next-auth/react';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { signIn, getSession } from 'next-auth/react'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
@@ -14,18 +15,18 @@ const LoginForm: React.FC = () => {
     e.preventDefault();
     setError(''); // Reset error message
 
-    const res = await signIn('credentials', {
+    const loginRes = await signIn('credentials', {
       email,
       password,
-      redirect: false, // We'll manually redirect after checking the result
-      callbackUrl: '/',
-    }, {
-      baseUrl: 'http://localhost:3001' // Adjust this to your API base URL
+      redirect: false,
     });
 
-    if (res?.ok) {
-      const session = await getSession();
+    if (!loginRes?.ok) {
+      console.error('Auto-login failed');
+      return;
+    }
 
+    const session = await getSession();
     const role = session?.user?.role;
 
     switch (role) {
@@ -42,11 +43,8 @@ const LoginForm: React.FC = () => {
         router.push('/platform/director'); // Or reuse /admin
         break;
       default:
-        setError('Unknown user role');
+        router.push("/platform");
     }
-  } else {
-    setError('Invalid email or password');
-  }
 };
 
   return (
@@ -88,7 +86,7 @@ const LoginForm: React.FC = () => {
 
       <p className="text-center text-sm text-gray-600">
         ¿No tienes una cuenta?{' '}
-        <a href="/register" className="text-blue-600 underline">Registrate aquí</a>
+        <Link  href="/?view=register" className="text-blue-600 underline">Crear una cuenta </Link>
       </p>
     </form>
   );
