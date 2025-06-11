@@ -1,41 +1,16 @@
-'use client';
+import { Suspense } from 'react';
+import ClientHome from './components/ClientHome';
 
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import ContainerRegisterForm from './sections/auth/register/containers/ContainerRegisterForm';
-import HomePage from './components/HomePage';
-import ContainerHome from './sections/home/container/HomeContainer';
-
-export default function Page() {
-  const searchParams = useSearchParams();
-  const [view, setView] = useState<'home' | 'register' | 'public-home'>('home');
-
-  // Handle ?view=register or ?view=explore from URL
-  useEffect(() => {
-    const urlView = searchParams.get('view');
-    if (urlView === 'register') {
-      setView('register');
-    } else if (urlView === 'explore') {
-      setView('public-home');
-    }
-  }, [searchParams]);
-
+export default function HomePageWrapper() {
   return (
-    <>
-      {view === 'home' && (
-        <HomePage
-          onRegisterClick={() => setView('register')}
-          onContinueClick={() => setView('public-home')}
-        />
-      )}
-
-      {view === 'register' && (
-        <ContainerRegisterForm onExploreClick={() => setView('public-home')} />
-        
-      )}
-      {view === 'public-home' && (
-        <ContainerHome onRegisterClick={() => setView('register')} />
-      )}
-    </>
+    <Suspense fallback={<div className="p-8 text-center">Cargando vista...</div>}>
+      <ClientHome />
+    </Suspense>
   );
 }
+// This component serves as a wrapper for the ClientHome component, providing a
+// fallback loading state while the ClientHome component is being loaded. The
+// use of `Suspense` allows for a smoother user experience by displaying a loading
+// message while the main content is being prepared. This is particularly useful
+// for components that may take time to load, ensuring that users are aware that
+// content is being fetched or processed in the background.

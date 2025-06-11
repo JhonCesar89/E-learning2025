@@ -1,20 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import LeftPanel from '@/app/sections/auth/register/components/LeftPanel'
-import LoginForm from '@/app/sections/auth/login/components/LoginForm'
+import ContainerLoginForm from '@/app/sections/auth/login/container/ContainerLoginForm';
 
 export default function LoginPage() {
   const router = useRouter();
 
   return (
-    <div className="w-full justify-center flex min-h-screen bg-gray-50">
-      <div className="w-[40%] flex">
-        <LeftPanel onExploreClick={() => router.push('/?view=explore')} />
-      </div>
-      <div className="w-[60%] flex bg-slate-100 justify-center p-6">
-        <LoginForm />
-      </div>
-    </div>
+    <ContainerLoginForm onExploreClick={() => router.push('/?view=explore')} />
   );
 }
