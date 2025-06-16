@@ -4,7 +4,6 @@ import React, { useState, ChangeEvent, KeyboardEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-
 import NavbarMenu from '../menu/NavbarMenu'
 import { aboutUsItems } from '../data/aboutUsItems'
 import PaymentMethods from '../modals/payment/PaymentMethods'
