@@ -8,8 +8,18 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx, mdx}", // include .mdx if using App Router features
   ],
   theme: {
-    extend: {},
+  extend: {
+    animation: {
+      'fade-in': 'fadeIn 0.8s ease-in forwards',
+    },
+    keyframes: {
+      fadeIn: {
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+      },
+    },
   },
+},
   plugins: [
     flowbite,
   ],

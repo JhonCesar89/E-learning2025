@@ -35,58 +35,86 @@ export default function CoursePage() {
           {/* Main Content */}
           <div className="flex-1 space-y-12">
             <header>
-              <h1 className="text-6xl text-center font-bold text-indigo-800 mb-4">
+              <h1 className="text-6xl text-center font-bold text-indigo-800 mb-6">
                 Comienza hoy tu carrera en {course.title}
               </h1>
             </header>
 
             <section>
-              <h3 className="text-4xl text-center font-semibold text-indigo-700 mb-4">
+              <h3 className="text-4xl text-center font-semibold text-indigo-700 mb-6">
                 ¿Qué es ser un {course.title}?
               </h3>
-              <p className="text-gray-700 text-lg text-justify leading-relaxed">{course.intro}</p>
-              <h3 className="text-4xl font-semibold text-indigo-700 text-center mt-4">
-                  Beneficios de aprender {course.title}
+              <p className="text-gray-700 text-xl text-justify leading-relaxed">{course.intro}</p>
+              
+              {/*Conditionally show the course-specific video */}
+              {course.video && (
+                <div className="flex justify-center my-8">
+                  {course.video.includes('youtube.com') ? (
+                      <iframe
+                        src={course.video}
+                        title={`Video de introducción a ${course.title}`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className='w-full max-w-3xl h-[250px] sm:h-[360px]rounded-lg shadow-lg'
+                      />
+                    ) : (
+                      <video
+                        src={course.video}
+                        controls
+                        className="rounded-lg shadow-lg w-full max-w-3xl"
+                      />
+                    )}
+                </div>
+              )}
+              <h3 className="text-4xl font-semibold text-indigo-700 text-center mt-6">
+                  Beneficios de ser un profesional {course.title}
                 </h3>            
             </section>            
 
-            <section className='grid md:grid-cols-2 gap-8 items-start'>
-              {/* Left: list */}
-              <div>
-                <ul className="list-disc list-inside space-y-1 text-gray-700">
+            <section className='flex flex-col items-center gap-8'>
+              {/* Center: list */}
+              <div className='flex justify-center'>
+                <ul className="space-y-4 max-w-2xl w-full">
                   {course.benefits.map((b, i) => (
-                  <li key={i} className="flex items-start text-justify text-lg gap-2">
-                    <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mt-1" />
-                    <span className="flex-1">{b}</span>
+                  <li 
+                    key={i} 
+                    className="flex items-center justify-center text-xl gap-2 text-center"
+                  >
+                    <FontAwesomeIcon
+                      icon={faCheckCircle}
+                      className="text-green-500 min-w-[24px]"
+                    />
+                    <span className="text-center">{b}</span>
                   </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Right: image with overlay */}
-              <div className='relative w-[350px] h-[400px] group rounded-lg overflow-hidden items-center'>
-                <Image
-                  src={course.images[0]}
-                  alt={`Promo de ${course.title}`}
-                  fill
-                  className='object-cover transition-transform duration-500 ease-in-out group-hover:scale-105'
-                />
-                <div className='absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300'>
-                  <p className='text-white text-lg font-semibold text-center px-4'>
-                    ¡Transforma tu carrera con nosotros! Aprende {course.title}
-                  </p>
-                </div>
-              </div>
             </section>
 
             <section>
-              <h3 className="text-4xl font-semibold text-indigo-700 mb-4">
+              <h3 className="text-4xl font-semibold text-indigo-700 mb-6 text-center">
                 Inscríbete a nuestro curso y conviértete en un profesional en {course.title}
               </h3>
-              <p className="text-gray-700 text-justify text-lg marker:mb-6 mb-6">{course.enrollMessage}</p>
+              <p className="text-gray-700 text-justify text-xl marker:mb-6 mb-8">{course.enrollMessage}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {course.images.map((src, i) => (
-                  <Image key={i} src={src} alt={`Curso ${course.title} ${i + 1}`} width={400} height={300} />
+                  <div
+                    key={i} 
+                    className="relative group w-full h-[450px] overflow-hidden rounded-lg shadow-md"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Curso ${course.title} ${i + 1 }`}
+                      fill
+                      className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                      <p className="text-white text-xl font-semibold text-center px-4">
+                        {course.overlayTexts?.[i] || 'Descubre más sobre este curso'}
+                      </p>
+                    </div>
+                  </div>
                 ))}
               </div>
             </section>
