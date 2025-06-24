@@ -1,8 +1,8 @@
 // src/sections/auth/login/containers/ContainerLoginForm.tsx
 'use client';
 
-import LeftPanel from '@/app/sections/auth/register/components/LeftPanel';
-import LoginForm from '../components/LoginForm';
+import LeftPanel from '@/app/sections/auth/register/components/LeftPanel'
+import RightPanel from '@/app/sections/auth/register/components/RightPanel'
 
 interface ContainerLoginFormProps {
   onExploreClick: () => void;
@@ -20,7 +20,14 @@ const ContainerLoginForm: React.FC<ContainerLoginFormProps> = ({ onExploreClick 
 
         {/* Right panel with login form */}
         <div className="w-[60%] flex bg-slate-100 justify-center p-6">
-          <LoginForm />
+          <RightPanel
+            mode="login"
+            onboardingId={""}
+            onEmailVerified={() => {}}
+            onOTPVerified={() => {}}
+            onCredentialsSubmitted={() => {}}
+            onProfileCompleted={() => {}}
+          />
         </div>
         
       </div>

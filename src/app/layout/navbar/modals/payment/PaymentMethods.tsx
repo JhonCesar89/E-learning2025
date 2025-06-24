@@ -18,19 +18,19 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ isOpen, onClose }) => {
         <div className={styles.paymentOptions}>
           <div className={styles.paymentItem}>
 
-            <i className={styles.paymentIcon}></i>
+            <i className={`fas fa-credit-card ${styles.paymentIcon}`}></i>
             <span>Tarjetas de Crédito/Débito</span>
           </div>
           <div className={styles.paymentItem}>
-            <i className={styles.paymentIcon}></i>
+            <i className={`fab fa-paypal ${styles.paymentIcon}`}></i>
             <span className={styles.paymentLabel}>PayPal</span>
           </div>
           <div className={styles.paymentItem}>
-            <i className={styles.paymentIcon}></i>
+            <i className={`fas fa-university ${styles.paymentIcon}`}></i>
             <span className={styles.paymentLabel}>Transferencias Bancarias</span>
           </div>
           <div className={styles.paymentItem}>
-            <i className={styles.paymentIcon}></i>
+            <i className={`fas fa-mobile-alt ${styles.paymentIcon}`}></i>
             <span className={styles.paymentLabel}>Billeteras Virtuales</span>
           </div>
         </div>
